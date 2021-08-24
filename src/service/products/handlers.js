@@ -12,18 +12,9 @@ const list = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const {
-      name,
-      description,
-      brand,
-      image_url,
-      price,
-      category,
-      created_at,
-      updated_at,
-    } = req.body;
+    const { name, description, brand, image_url, price, category } = req.body;
     const products = await db.query(
-      `INSERT INTO stuffs(name, description, brand, image_url, price, category, created_at, updated_at) VALUES('${name}', '${description}, '${brand}', '${image_url}', '${price}', '${category}', '${created_at}', '${updated_at}',') RETURNING *`
+      `INSERT INTO stuffs(name, description, brand, image_url, price, category) VALUES('${name}', '${description}', '${brand}', '${image_url}', '${price}', '${category}') RETURNING *` //, '${created_at}', '${updated_at}  , created_at, updated_at
     );
     res.send(products.rows);
   } catch (error) {

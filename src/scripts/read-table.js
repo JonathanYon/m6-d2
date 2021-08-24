@@ -8,7 +8,7 @@ const createTable = async () => {
     const sqlBuffer = await fs.readFile(patheSQL);
     const sqlCommand = sqlBuffer.toString();
     const result = await db.query(sqlCommand);
-    console.log(result);
+    // console.log(result);
     console.log(`✅ TABLE CREATED`);
   } catch (error) {
     console.log(`❌ TABLE NOT CREATED`);
