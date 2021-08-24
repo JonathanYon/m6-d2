@@ -55,7 +55,7 @@ const update = async (req, res, next) => {
 const deletes = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { comment, rate } = req.body;
+    c;
     const reviews = await db.query(`
     DELETE FROM feedbacks
     WHERE id = ${id}
