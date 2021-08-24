@@ -25,7 +25,9 @@ const create = async (req, res, next) => {
 const single = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const products = await db.query(`SELECT * FROM stuffs WHERE id = ${id}`);
+    const products = await db.query(
+      `SELECT * FROM stuffs WHERE stuffs_id = ${id}`
+    );
     const [found, ...rest] = products.rows;
     res.status(found ? 200 : 404).send(found); //send(products.rows[0]);
   } catch (error) {
@@ -46,8 +48,9 @@ const update = async (req, res, next) => {
     brand = '${brand}',
     image_url = '${image_url}',
     price = '${price}',
-    category = '${category}'
-    WHERE id = ${id} RETURNING *`);
+    category = '${category}',
+    updated_at = NOW()
+    WHERE stuffs_id = ${id} RETURNING *`);
     const [found, ...rest] = products.rows;
     res.status(found ? 200 : 400).send(found);
   } catch (error) {
@@ -62,7 +65,7 @@ const deletes = async (req, res, next) => {
 
     const products = await db.query(`
     DELETE FROM stuffs
-    WHERE id = ${id}
+    WHERE stuffs_id = ${id}
     `);
     const [found, ...rest] = products.rows;
     res.status(found ? 200 : 400).send(found);

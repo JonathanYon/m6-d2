@@ -12,9 +12,9 @@ const list = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { comment, rate } = req.body;
+    const { comment, rate, stuffs_id } = req.body;
     const reviews = await db.query(
-      `INSERT INTO feedbacks(comment, rate) VALUES('${comment}', '${rate}') RETURNING *`
+      `INSERT INTO feedbacks(comment, rate, stuffs_id) VALUES('${comment}', '${rate}', '${stuffs_id}') RETURNING *`
     );
     res.send(reviews.rows);
   } catch (error) {
@@ -42,7 +42,9 @@ const update = async (req, res, next) => {
 
     UPDATE feedbacks 
     SET comment = '${comment}',
-    rate = '${rate}'
+    rate = '${rate}',
+    stuffs_id = '${stuffs_id}',
+    updated_at = NOW()
     WHERE id = ${id} RETURNING *`);
     const [found, ...rest] = reviews.rows;
     res.status(found ? 200 : 400).send(found);
@@ -55,7 +57,7 @@ const update = async (req, res, next) => {
 const deletes = async (req, res, next) => {
   try {
     const { id } = req.params;
-    c;
+
     const reviews = await db.query(`
     DELETE FROM feedbacks
     WHERE id = ${id}
