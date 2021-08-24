@@ -1,0 +1,35 @@
+{
+  "name": "m6-d2",
+  "version": "1.0.0",
+  "description": "product api pstgres",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon -e js -r dotenv/config ./src/sever.js",
+    "start": "node ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonathanYon/m6-d2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonathanYon/m6-d2/issues"
+  },
+  "homepage": "https://github.com/JonathanYon/m6-d2#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-list-endpoints": "^6.0.0",
+    "fs-extra": "^10.0.0",
+    "multer": "^1.4.3",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
