@@ -12,6 +12,7 @@ const createTable = async () => {
     console.log(`✅ TABLE CREATED`);
   } catch (error) {
     console.log(`❌ TABLE NOT CREATED`);
+    // console.log(error);
   }
 };
 export default createTable;
