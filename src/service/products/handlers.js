@@ -2,8 +2,8 @@ import db from "../../db/connection.js";
 
 const list = async (req, res, next) => {
   try {
-    const reviews = await db.query(`SELECT * FROM feedbacks`);
-    res.send(reviews.rows);
+    const products = await db.query(`SELECT * FROM stuffs`);
+    res.send(products.rows);
   } catch (error) {
     next(error);
     res.status(500).send(error);
@@ -12,11 +12,20 @@ const list = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { comment, rate } = req.body;
-    const reviews = await db.query(
-      `INSERT INTO feedbacks(comment, rate) VALUES('${comment}', '${rate}') RETURNING *`
+    const {
+      name,
+      description,
+      brand,
+      image_url,
+      price,
+      category,
+      created_at,
+      updated_at,
+    } = req.body;
+    const products = await db.query(
+      `INSERT INTO stuffs(name, description, brand, image_url, price, category, created_at, updated_at) VALUES('${name}', '${description}, '${brand}', '${image_url}', '${price}', '${category}', '${created_at}', '${updated_at}',') RETURNING *`
     );
-    res.send(reviews.rows);
+    res.send(products.rows);
   } catch (error) {
     next(error);
     res.status(500).send(error);
@@ -25,9 +34,9 @@ const create = async (req, res, next) => {
 const single = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const reviews = await db.query(`SELECT * FROM feedbacks WHERE id = ${id}`);
-    const [found, ...rest] = reviews.rows;
-    res.status(found ? 200 : 404).send(found); //send(reviews.rows[0]);
+    const products = await db.query(`SELECT * FROM stuffs WHERE id = ${id}`);
+    const [found, ...rest] = products.rows;
+    res.status(found ? 200 : 404).send(found); //send(products.rows[0]);
   } catch (error) {
     next(error);
     res.status(500).send(error);
@@ -38,13 +47,13 @@ const update = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { comment, rate } = req.body;
-    const reviews = await db.query(`
+    const products = await db.query(`
 
-    UPDATE feedbacks 
+    UPDATE stuffs 
     SET comment = '${comment}',
     rate = '${rate}'
     WHERE id = ${id} RETURNING *`);
-    const [found, ...rest] = reviews.rows;
+    const [found, ...rest] = products.rows;
     res.status(found ? 200 : 400).send(found);
   } catch (error) {
     next(error);
@@ -56,11 +65,11 @@ const deletes = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { comment, rate } = req.body;
-    const reviews = await db.query(`
-    DELETE FROM feedbacks
+    const products = await db.query(`
+    DELETE FROM stuffs
     WHERE id = ${id}
     `);
-    const [found, ...rest] = reviews.rows;
+    const [found, ...rest] = products.rows;
     res.status(found ? 200 : 400).send(found);
   } catch (error) {
     next(error);
