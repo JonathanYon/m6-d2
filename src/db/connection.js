@@ -17,7 +17,7 @@ const { Pool } = pg;
 //   pool.end()
 // })
 
-const { NODE_ENV, DATABASE_URL_DEV } = process.env;
+const { NODE_ENV, DATABASE_URL } = process.env;
 
 const isDeployed = NODE_ENV === "production";
 // conditional ssl config
@@ -28,7 +28,7 @@ const sslConfig = isDeployed ? { ssl: { rejectUnauthorized: false } } : {};
 
 const db = new Pool({
   ...sslConfig, //  spreading sslConfig conditionally
-  connectionString: DATABASE_URL_DEV,
+  connectionString: DATABASE_URL,
 });
 
 export default db;
