@@ -5,7 +5,7 @@ import services from "./service/index.js";
 import createTable from "./scripts/read-table.js";
 
 const server = express();
-const port = process.env.port;
+const port = process.env.PORT || 3003;
 
 server.use(cors());
 server.use(express.json());
